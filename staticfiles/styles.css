@@ -30,7 +30,6 @@ body.dark{
     --text-black-900:#302e4d;
     --text-black-700:#504e70;
     --text-black-600:hsl(343, 60%, 45%);
-
 }
 .main-content{
     scroll-snap-type: y mandatory;
@@ -47,8 +46,34 @@ body{
     overflow-y: auto;
     background:var(--bg-black-900)
     font-family: 'Poppins', sans-serif;
+}
 
+P{
+    font-family: 'Poppins', sans-serif;
+}
 
+h1{
+    font-family: 'Poppins', sans-serif;
+}
+
+h2{
+    font-family: 'Poppins', sans-serif;
+}
+
+h3{
+    font-family: 'Poppins', sans-serif;
+}
+
+h4{
+    font-family: 'Poppins', sans-serif;
+}
+
+h5{
+    font-family: 'Poppins', sans-serif;
+}
+
+h6{
+    font-family: 'Poppins', sans-serif;
 }
 ::-webkit-scrollbar {
     width: 15px;
@@ -59,8 +84,8 @@ body{
     border-radius: 5px;
   }
   ::-webkit-scrollbar-track {
-    background-color: #000;
-    border: 4px solid #000;
+    background-color: #212121;
+    border: 4px solid #212121;
   }
 *{
     margin: 0;
@@ -563,8 +588,8 @@ h3.my-profession{
     border-radius: 5px;
   }
   .must::-webkit-scrollbar-track {
-    background-color: #ddd;
-    border: 1px solid #ccc;
+    background-color: #212121;;
+    border: 1px solid #212121;;
   }
 
 .about .about-content .education,
@@ -607,10 +632,13 @@ h3.my-profession{
     border-radius: 10px;
   }
   .timeline::-webkit-scrollbar-track {
-    background-color: var(--bg-black-50);;
-    border: 1px solid var(--text-black-500);;
+    background-color: #212121;
+    border: 1px solid #212121;
     padding-right: 40px;
   }
+  .timeline::-webkit-scrollbar-corner {
+    background-color: #212121;/* your desired color */;
+}
 .shadow-dark{
     box-shadow: 0 0 20px rgba(48, 46, 77, 0.25);
 }
@@ -887,12 +915,13 @@ scroll-snap-align: center;
     height: 10px;
   }
   .gallery::-webkit-scrollbar-thumb {
+    background-color: var(--text-black-500);;
     background: var(--text-black-500);
     border-radius: 5px;
   }
   .gallery::-webkit-scrollbar-track {
-    background-color: var(--text-black-500);;
-    border: 1px solid var(--text-black-500);;
+    background-color: #212121;
+    border: 1px solid #212121;
   }
 
 
