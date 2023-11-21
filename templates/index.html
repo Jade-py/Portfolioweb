@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'color-1.css' %}">
+
+    <link rel="stylesheet" href="{% static 'color-1.css' %}" class="alternate-style" title="color-1" disabled>
+    <link rel="stylesheet" href="{% static 'color-2.css' %}" class="alternate-style" title="color-2" disabled>
+    <link rel="stylesheet" href="{% static 'color-3.css' %}" class="alternate-style" title="color-3" disabled>
+    <link rel="stylesheet" href="{% static 'color-4.css' %}" class="alternate-style" title="color-4" disabled>
+    <link rel="stylesheet" href="{% static 'color-5.css' %}" class="alternate-style" title="color-5" disabled>
+
+
+    <script src="https://kit.fontawesome.com/ecb170e391.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="{% static 'style-switcher.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Carter+One&family=Clicker+Script&family=Lilita+One&family=Lobster&family=Montserrat+Alternates:wght@400;700&family=Montserrat:wght@600;900&family=Oleo+Script&family=Open+Sans:wght@600&family=Patua+One&family=Poppins:wght@200;300;400;600;700&family=Tektur&family=Ubuntu&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'cursorstyle.css' %}">
+</head>
+<body>
+    <!-- <canvas id="canvas"></canvas> -->
+    <div class="mainCointainer">
+        <div class="aside">
+            <div class="logo">
+                <a href="{% url 'login' %}">@<span>Jade</span>-py</a>
+            </div>
+            <div class="nav-toggler">
+                <span></span>
+            </div>
+            <ul class="nav">
+                <li><a href="#home" class="active"><i class="fa-solid fa-house-chimney"></i>&ensp;Home</a></li>
+                <li><a href="#about"><i class="fa-solid fa-user"></i>&ensp;About</a></li>
+                <li><a href="#portfolio"><i class="fa-solid fa-briefcase"></i>&ensp;Projects</a></li>
+                <li><a href="#contact"><i class="fa-solid fa-comments"></i>&ensp;Contact</a></li>
+
+            </ul>
+        </div>
+        <div class="main-content">
+            <section class="home section " id="home">
+                <div class="container">
+                    <div class="row">
+                        <div class="home-info padd-15">
+                            <!-- <h3 class="hello">Hello, my name is <span class="name">Ashutosh_Agnihotri</span></h3> -->
+                            <h3 class="hello">Hello, I'm <br> <span class="name">Justin George</span></h3>
+                            <h3 class="my-profession">A <span class="typing">Backend Developer</span></h3>
+                            <p>I'm a server side developer, I craft the digital magic behind the scenes for seamless user experience:)</p>
+
+                            <div class="Con">
+
+                                <a href="#contact">
+                                    <button class="button" id="scrollButton">
+                                        <a href="#contact" class="Hire">Hire Me</a>
+                                        <div class="button__horizontal"></div>
+                                        <div class="button__vertical"></div>
+                                    </button>
+                                </a>
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="home-img padd-15">
+                            <img src="{% static 'images/IMG_20230912_190113.jpg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="about section " id="about">
+                <div class="container">
+                    <div class="row">
+                        <section class="section-title">
+                            <h2>About Me</h2>
+                        </section>
+                    </div>
+                    <div class="row">
+                        <div class="about-content padd-15">
+                            <div class="row">
+                                <div class="about-text">
+                                    <p>I possess a strong foundation in backend development, including proficiency in programming languages such as Python and Java. I have experience working with Django Framework and am well-versed with MySql Database Management System. I also have participated in multiple hackathons imbibing in me qualities like Team Leadership and Coordination. I am also fluent in English, Hindi, Punjabi and Malayalam </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="personal-info padd-15">
+                                    <div class="row">
+                                        <div class="info-item padd-15">
+                                            <p>Birth Date: <span>5 May 2003</span></p>
+                                        </div>
+                                        <div class="info-item padd-15">
+                                            <p>Age: <span>20</span></p>
+                                        </div>
+                                        <div class="info-item padd-15">
+                                            <p>Email-id: <span>justingeorge322@gmail.com</span></p>
+                                        </div>
+                                        <div class="info-item padd-15">
+                                            <p>Degree: <span>Bachelor of Engineering in Computer Science</span></p>
+                                        </div>
+                                        <div class="info-item padd-15">
+                                            <p>Phone No.: <span>+91 8437870889</span></p>
+                                        </div>
+                                        <div class="info-item padd-15">
+                                            <p>City: <span>Chandigarh(currently)</span></p>
+                                        </div>
+                                        <div class="info-item padd-15">
+                                            <p>For Work: <span>Available</span></p>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="buttons padd-15">
+                                            <a target="_blank" href="{% url 'resume' %}" class="btn">Download CV</a>
+                                            <button class="not-required"><a  id="scrollButton2" class="btn">Contact Me</a></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skills must padd-15">
+                                    <div class="row">
+                                        {% for skill in skills %}
+                                            <div class="skill-item padd-15">
+                                                <h5>{{ skill.name }}</h5>
+                                                <div class="progress">
+                                                    <div class="progress-in" style="width: {{ skill.level }}%;"></div>
+                                                    <div class="skill-percent">{{ skill.level }}%</div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="education  padd-15">
+                                    <h3 class="title">Education</h3>
+                                    <div class="row">
+                                        <div class="timeline-box  padd-15">
+                                            <div class="timeline box shadow-dark">
+
+                                                <div class="timeline-item">
+                                                    <div class="circle-dot"></div>
+                                                        <h3 class="timeline-date"><i class="fa-solid fa-calendar-days"></i>&ensp;2021-currently</h3>
+                                                        <h4 class="timeline-title">Chandigarh University</h4>
+                                                        <p class="timelinetext">Pursuing Bachelor of Engineering in Computer Science</p>
+                                                        <p class="timelinetext">3rd Year&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;2021-2025 Batch</p>
+                                                        <p class="timelinetext">7.2&ensp;CGPA</p>
+
+
+                                                </div>
+                                                <div class="timeline-item ">
+                                                    <div class="circle-dot"></div>
+                                                        <h3 class="timeline-date"><i class="fa-solid fa-calendar-days"></i>&ensp;2015-2021</h3>
+                                                        <h4 class="timeline-title">Sacred Heart Convent School, Sarabha Nagar, Ludhiana, Punjab</h4>
+                                                        <p class="timelinetext">Senior Secondary Examination(2021)</p>
+                                                        <p class="timelinetext">Secondary Examination(2019)</p>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="experience  padd-15">
+                                    <h3 class="title">Certifications</h3>
+                                    <div class="row">
+                                        <div class="timeline-box  padd-15 card">
+                                            <div class="timeline box shadow-dark">
+
+                                                {% for certificate in certificates %}
+                                                    <div class="timeline-item">
+                                                        <div class="circle-dot"></div>
+                                                            <h3 class="timeline-date"><i class="fa-solid fa-calendar-days"></i> {{ certificate.start | date:"F Y" }} - {{ certificate.end | date:"F Y" }}</h3>
+                                                            <h4 class="timeline-title">{{ certificate.name }}</h4>
+                                                            <p class="timelinetext">{{ certificate.platform }}</p><br>
+                                                            <p class="timelinetext">Verification Link: </p>
+                                                            <a style="color:white;" href ="{{ certificate.verification_link }}">{{ certificate.verification_link }}</a>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <section class="portfolio section1" id="portfolio">
+                <div class="container">
+                    <div class="row">
+                        <div class="section-title padd-15 HeadPart" style="margin-bottom: 30px;">
+                            <h2>Projects</h2>
+                        </div>
+                    </div>
+
+                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" class="gallery padd-15 ">
+                        {% for project in projects %}
+                            <div class="row Project-Rows" id="scrollspyHeading2">
+                                <div class="MyProject">
+                                    <img src="{{ project.img.url }}" alt="{{ project.img.url }}">
+                                    <div class="Project-Content">
+                                        <h3>{{ project.title }}</h3>
+                                        <div class="newMatter" >
+                                            <p>{{ project.description }}</p>
+                                        </div>
+    <!--                                    <div class="Matter" style="width:100%">-->
+    <!--                                        <p style="width:500px">,jbdfkjfhbs ebdfckj to plan your day store your documents and notes and create your own</p>-->
+    <!--&lt;!&ndash;                                        <div class="Role">&ndash;&gt;-->
+    <!--&lt;!&ndash;                                            <p>Frontend: <span> Ashutosh</span></p>&ndash;&gt;-->
+    <!--&lt;!&ndash;                                            <p>Backend: <span> Justin</span></p>&ndash;&gt;-->
+    <!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
+
+    <!--                                    </div>-->
+                                        <div class="visit">
+                                            <p>Feel free to <span><a href="{{ project.website_link }}">Visit</a></span>&ensp;|&ensp;<a href="{{ project.github_link }}"><i class="fa-brands fa-github"></i></a></p>
+                                        </div>
+
+                                        <div class="navy">
+                                            <div class="navy-icons lo ht">
+                                                {% for skill in project.skill.all %}
+                                                    <img src="{{ skill.icon.url }}"/>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="locate">
+                        <div class="Circle-updates">
+                            <button class="NavBtn" id="myFirst"><a href="#scrollspyHeading1"><i id="nav1" class="fa-regular fa-circle fa-2xs fa-solid"></i></a></button>
+                            <button class="NavBtn" id="mySecond"><a href="#scrollspyHeading2"><i id="nav2" class="fa-regular fa-circle fa-2xs"></i></a></button>
+                            <button class="NavBtn" id="myThird"><a href="#scrollspyHeading3"><i id="nav3" class="fa-regular fa-circle fa-2xs"></i></a></button>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+            <section class="contact section1" id="contact">
+                <div class="container">
+                    <div class="row">
+                        <div class="section-title padd-15 HeadPart">
+                            <h2>Contact Me</h2>
+                        </div>
+                    </div>
+                    <h3 class="contact-title">Got Any Questions?</h3>
+                    <h4 class="conatct-sub-title">Feel free to reach out</h4>
+                    <div class="row1">
+                        <div class="contact-info-item padd-15">
+                            <div class="icon"><i class="fa-solid fa-location-dot fa-2xl"></i></div>
+                            <h4>Location</h4>
+                            <p>Chandigarh</p>
+                        </div>
+                        <div class="contact-info-item padd-15">
+                            <div class="icon"><i class="fa-solid fa-envelope fa-2xl"></i></div>
+                            <h4>Email</h4>
+                            <p>justingeorge322@gmail.com</p>
+                        </div>
+                        <div class="contact-info-item padd-15">
+                            <div class="icon"><i class="fa-brands fa-github fa-2xl"></i></div>
+                            <h4>Github</h4>
+                            <p><a href="github.com/Jade-py" style="color:white;">github.com/Jade-py</a></p>
+                        </div>
+
+                    </div>
+                    <h3 class="contact-title padd-15">Send Me An Email</h3>
+                    <!-- <h4 class="conatct-sub-title">I'M AT YOUR SERVICE</h4> -->
+                    <div class="row">
+                        <div class="contact-form padd-15">
+                            <form action="https://formspree.io/f/mgejzeyr" method="POST">
+                                <div class="row">
+                                    <div class="form-item col-6 padd-15">
+                                        <div class="form-group input-group">
+                                            <input type="text" class="form-control .input-group_input" placeholder="Your Name" name="name" id="name">
+                                            <label for="name" class="input-group_label"></label>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-item col-6 padd-15">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Your Email"  name="email" id="email">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-item col-12 padd-15">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Subject" name="subject" id="subject">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-item col-12 padd-15">
+                                        <div class="form-group">
+                                            <textarea name="msg" class="form-control" id="" placeholder="Message"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-item col-12 padd-15">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn">Send Email</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+<div class="style-switcher">
+    <div class="style-switcher-toggler s-icon">
+        <i class="fas fa-cog fa-spin"></i>
+    </div>
+    <div class="day-night s-icon">
+        <i class="fas "></i>
+    </div>
+    <h4>Theme Colors</h4>
+    <div class="colors">
+        <span class="color-1" onclick="setActiveStyle('color-1')"></span>
+        <span class="color-2" onclick="setActiveStyle('color-2')"></span>
+        <span class="color-3" onclick="setActiveStyle('color-3')"></span>
+        <span class="color-4" onclick="setActiveStyle('color-4')"></span>
+        <span class="color-5" onclick="setActiveStyle('color-5')"></span>
+
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.16/typed.umd.js" integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'script.js' %}"></script>
+    <script src="{% static 'style-switcher.js' %}"></script>
+    <script src="main.js"></script>
+</body>
+</html>

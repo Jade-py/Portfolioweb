@@ -1,0 +1,82 @@
+<h1>Workspace: {{ user }}</h1><a href="{% url 'logout' %}">Logout</a>
+<h3>Skills</h3>
+<h4>Add</h4>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form1.as_p }}
+    <button type="submit" name="SkillsCreate" value=" ">Submit</button>
+    {{ form1.errors }}
+</form>
+<h4>update</h4>
+{% for skill in skills %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="{{ form2.level.id_for_label }}">{{ skill.name }}</label>
+        <input type="number" name="{{ form2.level.name }}"
+                           placeholder="{{ skill.level }}"/>
+        {{ form2.errors }}
+        <button type="submit" name="SkillsUpdate" value="{{ skill.name }}">Submit </button> <a href="{% url 'DeleteSkill' skill.pk %}"> Delete</a>
+    </form>
+{% endfor %}
+
+<h3>Certification</h3>
+{% for certificate in certificates %}
+<ul>
+    {{ certificate.name }}
+    <a href="{% url 'up' 'Certification' certificate.pk %}">move up</a>
+    <a href="{% url 'down' 'Certification' certificate.pk %}">move down</a>
+    <a href="{% url 'DeleteCertificate' certificate.pk %}"> Delete</a>
+</ul>
+    {{ certificate.platform }}
+    {{ certificate.start }}
+    {{ certificate.end }}
+    <a href="{{ certificate.verification_link }}">{{ certificate.verification_link }}</a>
+{% endfor %}
+<h4>Add</h4>
+<form method="post">
+        {% csrf_token %}
+        <label for="{{ form3.name.id_for_label }}"> Certificate Title</label>
+        <input type="text" name="{{ form3.name.name }}"/>
+        <label for="{{ form3.platform.id_for_label }}"> Platform</label>
+        <input type="text" name="{{ form3.platform.name }}"/>
+        <label for="{{ form3.start.id_for_label }}"> Started on</label>
+        <input type="date" name="{{ form3.start.name }}"/>
+        <label for="{{ form3.end.id_for_label }}"> Ended On</label>
+        <input type="date" name="{{ form3.end.name }}"/>
+        <label for="{{ form3.verification_link.id_for_label }}"> Verification Link</label>
+        {{ form3.verification_link }}
+        {{ form3.errors }}
+        <button type="submit" name="Certification" value=" ">Submit </button>
+    </form>
+
+<h3>Projects</h3>
+<form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="{{ form4.title.id_for_label }}">Title</label>
+        <input type="text" name="{{ form4.title.name }}"/>
+        <label for="{{ form4.description.id_for_label }}">Description</label>
+        <input type="text" name="{{ form4.description.name }}"/>
+        <label for="{{ form4.website_link.id_for_label }}">Website Link</label>
+        {{ form4.website_link }}
+        <label for="{{ form4.github_link.id_for_label }}">Github Link</label>
+        {{ form4.github_link }}
+        <label for="{{ form4.skill.id_for_label }}">Skill</label>
+        {{ form4.skill }}
+        <label for="{{ form4.img.id_for_label }}">Background Image</label>
+        <input type="file" name="{{ form4.img.name }}" accept="image/*" />
+        <button type="submit" name="Projects" value=" ">Submit </button>
+    </form>
+
+{% for project in projects %}
+    {{ project.title }}
+    {{ project.description }}
+    {{ project.website_link }}
+    {{ project.github_link }}
+    {% for skill in project.skill.all %}
+        {{ skill }}
+    {% endfor %}
+    <img src="{{ project.img.url }}"/>
+    <a href="{% url 'up' 'Projects' project.pk %}">move up</a>
+    <a href="{% url 'down' 'Projects' project.pk %}">move down</a>
+    <a href="{% url 'DeleteProject' project.pk %}">Delete</a>
+{% endfor %}
