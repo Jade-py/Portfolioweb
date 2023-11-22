@@ -706,7 +706,6 @@ h3.my-profession{
 .MyProject{
     flex: 0 0 100%;
     max-width: 100%;
-    /* background-image: url(demo2.png); */
     height: 490px;
     padding: 0;
     margin: 0;
