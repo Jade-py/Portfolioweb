@@ -75,7 +75,7 @@
     {% for skill in project.skill.all %}
         {{ skill }}
     {% endfor %}
-    <img src="{{ project.img.url }}"/>
+    <img src="{{ project.img.url }}" alt="{{ project.img.url }}"/>
     <a href="{% url 'up' 'Projects' project.pk %}">move up</a>
     <a href="{% url 'down' 'Projects' project.pk %}">move down</a>
     <a href="{% url 'DeleteProject' project.pk %}">Delete</a>

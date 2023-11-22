@@ -75,6 +75,11 @@ h5{
 h6{
     font-family: 'Poppins', sans-serif;
 }
+
+a{
+    font-family: 'Poppins', sans-serif;
+}
+
 ::-webkit-scrollbar {
     width: 15px;
     height: 10px;
@@ -791,12 +796,15 @@ h3.my-profession{
     left: -1000%;
 }
 .Project-Content p{
-    flex: 0 0 60%;
-    max-width: 60%;
     margin-top: 20%;
     font-size: 24px;
-    width: 70%;
+    width: 100%;
 }
+
+.newMatter{
+    width: 100%
+}
+
 .navy{
     position: absolute;
     display: flex;
@@ -867,6 +875,7 @@ h3.my-profession{
 .visit span a{
     font-weight: 700;
     color: #ccc;
+    width: 10000%;
 }
 .Project-Rows{
     /* margin-bottom: 50px; */
