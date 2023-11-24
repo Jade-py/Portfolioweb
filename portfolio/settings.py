@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG'),
 
-ALLOWED_HOSTS = ['127.0.0.1', 'jadepy.tech']
+ALLOWED_HOSTS = ['127.0.0.1', 'portfolio.jadepy.tech']
 
 
 # Application definition
@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_TRUSTED_ORIGINS =['https://jadepy.tech']
+CSRF_TRUSTED_ORIGINS =['https://portfolio.jadepy.tech']
 
 ROOT_URLCONF = 'portfolio.urls'
 
