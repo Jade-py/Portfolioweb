@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG'),
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = ['127.0.0.1', 'portfolio.jadepy.tech']
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'base',
 ]
 
@@ -80,6 +81,8 @@ TEMPLATES = [
     },
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -99,10 +102,11 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('AZURE_MYSQL_NAME'),
+        'NAME': 'portfolio',
         'USER': os.getenv('AZURE_MYSQL_USER'),
         'PASSWORD': os.getenv('AZURE_MYSQL_PASSWORD'),
         'HOST': os.getenv('AZURE_MYSQL_HOST'),
+        'PORT': os.getenv('AZURE_MYSQL_PORT'),
         'OPTIONS': {
             'charset': 'utf8mb4',
         },
