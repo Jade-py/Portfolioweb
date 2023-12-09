@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = ['127.0.0.1', 'portfolio.jadepy.tech']
+ALLOWED_HOSTS = ['127.0.0.1', 'portfolio.jadepy.tech', '.vercel.app']
 
 
 # Application definition
@@ -109,7 +109,10 @@ DATABASES = {
         'PORT': os.getenv('AZURE_MYSQL_PORT'),
         'OPTIONS': {
             'charset': 'utf8mb4',
-        },
+            'ssl': {
+                'key': BASE_DIR / 'DigiCertGlobalRootCA.crt.pem'
+            }
+        }
     }
 }
 pymysql.install_as_MySQLdb()
