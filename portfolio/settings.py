@@ -102,7 +102,7 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'portfolio',
+        'NAME': os.getenv('AZURE_MYSQL_NAME'),
         'USER': os.getenv('AZURE_MYSQL_USER'),
         'PASSWORD': os.getenv('AZURE_MYSQL_PASSWORD'),
         'HOST': os.getenv('AZURE_MYSQL_HOST'),
