@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'base',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -80,17 +81,20 @@ TEMPLATES = [
     },
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+
+# Azure Storage Account Settings
+AZURE_CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=portfoliomedia;AccountKey=L5aJbuJABhkDhnZmumgM0qFEORyAYmnEGi4M2x+BbXvVB2umQLETtT/RxmYtcpMCZvIoD1kaMN4n+ASt2MlSzQ==;EndpointSuffix=core.windows.net'
+AZURE_CONTAINER = 'uploads'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [
     BASE_DIR / 'static/css'
 ]
 
 MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
+MEDIA_URL = 'https://portfoliomedia.blob.core.windows.net/portfolio/'
 
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
