@@ -112,9 +112,6 @@ DATABASES = {
         'PORT': os.getenv('AZURE_MYSQL_PORT'),
         'OPTIONS': {
             'charset': 'utf8mb4',
-            'ssl': {
-                'key': BASE_DIR / 'DigiCertGlobalRootCA.crt.pem'
-            }
         }
     }
 }
