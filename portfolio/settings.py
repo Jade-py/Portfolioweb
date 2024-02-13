@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'portfolio.jadepy.tech', '.vercel.app']
 
@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'base',
-    'storages'
 ]
 
 MIDDLEWARE = [
@@ -81,20 +82,26 @@ TEMPLATES = [
     },
 ]
 
-DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-
 # Azure Storage Account Settings
-AZURE_CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=portfoliomedia;AccountKey=L5aJbuJABhkDhnZmumgM0qFEORyAYmnEGi4M2x+BbXvVB2umQLETtT/RxmYtcpMCZvIoD1kaMN4n+ASt2MlSzQ==;EndpointSuffix=core.windows.net'
-AZURE_CONTAINER = 'uploads'
 
+
+# settings.py
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'static/css'
 ]
 
+CLOUDINARY = {
+    'cloud_name': 'dmmc25vgp',
+    'api_key': '484835791614199',
+    'api_secret': 'ZdR3UsleuF9Og52RfyWNAMTvSmc',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = 'https://portfoliomedia.blob.core.windows.net/portfolio/'
+MEDIA_URL = 'https://cloudinary://484835791614199:ZdR3UsleuF9Og52RfyWNAMTvSmc@dmmc25vgp/'
 
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 

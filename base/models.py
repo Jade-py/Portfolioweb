@@ -1,9 +1,9 @@
 from django.db import models
-
+from cloudinary.models import CloudinaryField
 
 class Skills(models.Model):
     name = models.CharField(max_length=200)
-    icon = models.ImageField(upload_to='portfolio', null=True)
+    icon = CloudinaryField('image')
     level = models.IntegerField()
     
     def __str__(self):
@@ -27,7 +27,7 @@ class Projects(models.Model):
     website_link = models.CharField(max_length=100)
     github_link = models.CharField(max_length=100)
     skill = models.ManyToManyField(Skills)
-    img = models.ImageField(upload_to='portfolio')
+    img = CloudinaryField('image')
 
     def __str__(self):
         return self.title
