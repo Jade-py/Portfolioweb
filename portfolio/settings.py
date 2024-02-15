@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = ['127.0.0.1', 'portfolio.jadepy.tech', '.vercel.app']
 
@@ -93,9 +93,9 @@ STATICFILES_DIRS = [
 ]
 
 CLOUDINARY = {
-    'cloud_name': 'dmmc25vgp',
-    'api_key': '484835791614199',
-    'api_secret': 'ZdR3UsleuF9Og52RfyWNAMTvSmc',
+    'cloud_name': os.getenv('CLOUD_NAME'),
+    'api_key': os.getenv('API_KEY'),
+    'api_secret': os.getenv('API_SECRET'),
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -112,11 +112,11 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('AZURE_MYSQL_NAME'),
-        'USER': os.getenv('AZURE_MYSQL_USER'),
-        'PASSWORD': os.getenv('AZURE_MYSQL_PASSWORD'),
-        'HOST': os.getenv('AZURE_MYSQL_HOST'),
-        'PORT': os.getenv('AZURE_MYSQL_PORT'),
+        'NAME': os.getenv('MYSQL_NAME'),
+        'USER': os.getenv('MYSQL_USER'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'HOST': os.getenv('MYSQL_HOST'),
+        'PORT': os.getenv('MYSQL_PORT'),
         'OPTIONS': {
             'charset': 'utf8mb4',
         }
