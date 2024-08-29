@@ -1,84 +1,114 @@
 {% load cloudinary %}
+{% load crispy_forms_tags %}
+<head><link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"></head>
+<style>
+    .section-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .section {
+        flex: 1;
+        min-width: 300px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;  /* Reduced padding */
+        margin-bottom: 15px;  /* Less space between sections */
+    }
+
+    .input-group {
+        margin-bottom: 5px;  /* Less space between input groups */
+    }
+
+    .input-group-text, .form-control {
+        padding: 5px 8px;  /* Reduced padding inside input fields */
+        font-size: 14px;  /* Smaller font size */
+    }
+
+    .btn {
+        padding: 5px 10px;  /* Smaller buttons */
+        font-size: 14px;  /* Smaller font size for buttons */
+    }
+
+    .btn-success, .btn-secondary, .btn-danger {
+        margin-left: 5px;  /* Adds a bit of spacing between buttons */
+    }
+    }
+</style>
 
 <h1>Workspace: {{ user }}</h1><a href="{% url 'logout' %}">Logout</a>
-<h3>Skills</h3>
-<h4>Add</h4>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form1.as_p }}
-    <button type="submit" name="SkillsCreate" value=" ">Submit</button>
-    {{ form1.errors }}
-</form>
-<h4>update</h4>
-{% for skill in skills %}
-    <form method="post">
-        {% csrf_token %}
-        <label for="{{ form2.level.id_for_label }}">{{ skill.name }}</label>
-        <input type="number" name="{{ form2.level.name }}"
-                           placeholder="{{ skill.level }}"/>
-        {{ form2.errors }}
-        <button type="submit" name="SkillsUpdate" value="{{ skill.name }}">Submit </button> <a href="{% url 'DeleteSkill' skill.pk %}"> Delete</a>
-    </form>
-{% endfor %}
 
-<h3>Certification</h3>
-{% for certificate in certificates %}
-<ul>
-    {{ certificate.name }}
-    <a href="{% url 'up' 'Certification' certificate.pk %}">move up</a>
-    <a href="{% url 'down' 'Certification' certificate.pk %}">move down</a>
-    <a href="{% url 'DeleteCertificate' certificate.pk %}"> Delete</a>
-</ul>
-    {{ certificate.platform }}
-    {{ certificate.start }}
-    {{ certificate.end }}
-    <a href="{{ certificate.verification_link }}">{{ certificate.verification_link }}</a>
-{% endfor %}
-<h4>Add</h4>
-<form method="post">
-        {% csrf_token %}
-        <label for="{{ form3.name.id_for_label }}"> Certificate Title</label>
-        <input type="text" name="{{ form3.name.name }}"/>
-        <label for="{{ form3.platform.id_for_label }}"> Platform</label>
-        <input type="text" name="{{ form3.platform.name }}"/>
-        <label for="{{ form3.start.id_for_label }}"> Started on</label>
-        <input type="date" name="{{ form3.start.name }}"/>
-        <label for="{{ form3.end.id_for_label }}"> Ended On</label>
-        <input type="date" name="{{ form3.end.name }}"/>
-        <label for="{{ form3.verification_link.id_for_label }}"> Verification Link</label>
-        {{ form3.verification_link }}
-        {{ form3.errors }}
-        <button type="submit" name="Certification" value=" ">Submit </button>
-    </form>
+<div class="section-container">
+    <div class="section">
+        <h3>Skills</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form1|crispy }}
+            <button type="submit" name="SkillsCreate" value=" " class="btn btn-success">Submit</button>
+            {{ form1.errors }}
+        </form>
+        <h4>Update</h4>
+        {% for skill in skills %}
+            <form method="post" class="mb-2">
+                {% csrf_token %}
+                <div class="input-group">
+                    <span class="input-group-text">{{ skill.name }}</span>
+                    <input type="number" name="{{ form2.level.name }}" placeholder="{{ skill.level }}" class="form-control"/>
+                    <button type="submit" name="SkillsUpdate" value="{{ skill.name }}" class="btn btn-secondary">Submit</button>
+                    <a href="{% url 'DeleteSkill' skill.pk %}" class="btn btn-danger">Delete</a>
+                </div>
+                {{ form2.errors }}
+            </form>
+        {% endfor %}
+    </div>
 
-<h3>Projects</h3>
-<form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="{{ form4.title.id_for_label }}">Title</label>
-        <input type="text" name="{{ form4.title.name }}"/>
-        <label for="{{ form4.description.id_for_label }}">Description</label>
-        <input type="text" name="{{ form4.description.name }}"/>
-        <label for="{{ form4.website_link.id_for_label }}">Website Link</label>
-        {{ form4.website_link }}
-        <label for="{{ form4.github_link.id_for_label }}">Github Link</label>
-        {{ form4.github_link }}
-        <label for="{{ form4.skill.id_for_label }}">Skill</label>
-        {{ form4.skill }}
-        <label for="{{ form4.img.id_for_label }}">Background Image</label>
-        <input type="file" name="{{ form4.img.name }}" accept="image/*" />
-        <button type="submit" name="Projects" value=" ">Submit </button>
-    </form>
+    <div class="section">
+        <h3>Certification</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form3|crispy }}
+            <button type="submit" name="Certification" value=" " class="btn btn-primary">Submit</button>
+        </form>
+        {% for certificate in certificates %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">{{ certificate.name }}</h5>
+                <p class="card-text">
+                    {{ certificate.platform }}<br>
+                    {{ certificate.start }} - {{ certificate.end }}<br>
+                    <a href="{{ certificate.verification_link }}">Verification Link</a>
+                </p>
+                <a href="{% url 'up' 'Certification' certificate.pk %}" class="btn btn-sm btn-primary">Move Up</a>
+                <a href="{% url 'down' 'Certification' certificate.pk %}" class="btn btn-sm btn-secondary">Move Down</a>
+                <a href="{% url 'DeleteCertificate' certificate.pk %}" class="btn btn-sm btn-danger">Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
-{% for project in projects %}
-    {{ project.title }}
-    {{ project.description }}
-    {{ project.website_link }}
-    {{ project.github_link }}
-    {% for skill in project.skill.all %}
-        {{ skill }}
-    {% endfor %}
-    {% cloudinary project.img.url %}
-    <a href="{% url 'up' 'Projects' project.pk %}">move up</a>
-    <a href="{% url 'down' 'Projects' project.pk %}">move down</a>
-    <a href="{% url 'DeleteProject' project.pk %}">Delete</a>
-{% endfor %}
+    <div class="section">
+        <h3>Projects</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form4|crispy }}
+            <button type="submit" name="Projects" value=" " class="btn btn-primary">Submit</button>
+        </form>
+        {% for project in projects %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">{{ project.title }}</h5>
+                <p class="card-text">{{ project.description }}</p>
+                <a href="{{ project.website_link }}" class="card-link">Website</a>
+                <a href="{{ project.github_link }}" class="card-link">GitHub</a>
+                <p>Skills: {% for skill in project.skill.all %}{{ skill }} {% endfor %}</p>
+                {% cloudinary project.img.url width=300 height=200 crop="fill" %}
+                <div class="mt-2">
+                    <a href="{% url 'up' 'Projects' project.pk %}" class="btn btn-sm btn-primary">Move Up</a>
+                    <a href="{% url 'down' 'Projects' project.pk %}" class="btn btn-sm btn-secondary">Move Down</a>
+                    <a href="{% url 'DeleteProject' project.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
