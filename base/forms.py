@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import CheckboxSelectMultiple
-from.models import Skills, Certification, Projects
+from .models import Skills, Certification, Projects, Resume
 
 
 class SkillsCreateForm(forms.ModelForm):
@@ -30,3 +30,11 @@ class ProjectForm(forms.ModelForm):
         queryset=Skills.objects.all(),
         widget=CheckboxSelectMultiple,
     )
+
+class ResumeForm(forms.ModelForm):
+    class Meta:
+        model = Resume
+        fields = ['file']
+        widgets = {
+            'file': forms.FileInput(attrs={'class': 'form-control-file'})
+        }

@@ -37,6 +37,18 @@
 </style>
 
 <h1>Workspace: {{ user }}</h1><a href="{% url 'logout' %}">Logout</a>
+<div class="section">
+    <div class="section">
+        <h3>Resume</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form5.file.id_for_label }}">Upload Resume</label>
+                {{ form5.file }}
+            </div>
+            <button type="submit" name="resume" class="btn btn-primary mt-3">Upload Resume</button>
+        </form>
+    </div>
 
 <div class="section-container">
     <div class="section">

@@ -99,7 +99,6 @@ CLOUDINARY = {
     'api_secret': os.getenv('API_SECRET'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = 'https://cloudinary://484835791614199:ZdR3UsleuF9Og52RfyWNAMTvSmc@dmmc25vgp/'

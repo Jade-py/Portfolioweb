@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import DeleteView
 from django.urls import reverse_lazy
-from .models import Skills, Certification, Projects
-from .forms import SkillsCreateForm, SkillsUpdateForm, CertificationForm, ProjectForm
+from .models import Skills, Certification, Projects, Resume
+from .forms import SkillsCreateForm, SkillsUpdateForm, CertificationForm, ProjectForm, ResumeForm
 from django.conf import settings
 from django.http import HttpResponse
 import os
@@ -29,15 +28,18 @@ def home(request):
         'projects': projects,
     }
 
-    return render(request,'index.html', context)
+    return render(request, 'index.html', context)
 
 
 def resume(request):
-    pdf = os.path.join(settings.BASE_DIR, 'static/Resume.pdf')
+    pdf = os.path.join(settings.BASE_DIR, Resume.objects.get(id=1).file.path)
+    filename = pdf.split('/')[-1]
     with open(pdf, 'rb') as file:
-        response=HttpResponse(file.read(), content_type='application/pdf')
-        response['Content-Disposition'] = 'inline; filename="Resume.pdf"'
+        response = HttpResponse(file.read(), content_type='application/pdf')
+        response['Content-Disposition'] = f'inline; filename="{filename}"'
+
     return response
+
 
 @login_required
 def workspace(request):
@@ -48,8 +50,10 @@ def workspace(request):
     form2 = SkillsUpdateForm()
     form3 = CertificationForm()
     form4 = ProjectForm()
+    form5 = ResumeForm()
 
     if request.method == 'POST':
+        print(request.POST)
 
         if 'SkillsCreate' in request.POST:
             form1 = SkillsCreateForm(request.POST, request.FILES)
@@ -92,11 +96,27 @@ def workspace(request):
             else:
                 print(form4.errors)
 
+        elif 'resume' in request.POST:
+            obj = Resume.objects.get(id=1)
+            file_path = obj.file.path
+            print(file_path)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+            form5 = ResumeForm(request.POST, request.FILES, instance=obj)
+            print('1')
+            if form5.is_valid():
+                print('2')
+                form5.save()
+                print('3')
+                return redirect('workspace')
+            else:
+                print(form5.errors)
     else:
         form1 = SkillsCreateForm()
         form2 = SkillsUpdateForm()
         form3 = CertificationForm()
         form4 = ProjectForm()
+        form5 = ResumeForm()
 
     context = {
         'skills': skills,
@@ -105,7 +125,8 @@ def workspace(request):
         'form1': form1,
         'form2': form2,
         'form3': form3,
-        'form4': form4
+        'form4': form4,
+        'form5': form5,
     }
     return render(request, 'workspace.html', context)
 
