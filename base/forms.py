@@ -24,6 +24,8 @@ class CertificationForm(forms.ModelForm):
 
 
 class ProjectForm(forms.ModelForm):
+    img = forms.FileField(label='Choose Image')
+
     class Meta:
         model = Projects
         exclude = ('img_url',)
