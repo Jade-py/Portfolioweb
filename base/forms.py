@@ -4,9 +4,11 @@ from .models import Skills, Certification, Projects, Resume
 
 
 class SkillsCreateForm(forms.ModelForm):
+    icon = forms.FileField(label='Icon')
+
     class Meta:
         model = Skills
-        fields = ('name', 'level', 'icon')
+        fields = ('name', 'level')
 
 
 class SkillsUpdateForm(forms.ModelForm):
@@ -34,6 +36,7 @@ class ProjectForm(forms.ModelForm):
 
 class ResumeForm(forms.ModelForm):
     file = forms.FileField(label='Upload Resume')
+
     class Meta:
         model = Resume
         fields = '__all__'

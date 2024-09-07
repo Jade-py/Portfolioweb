@@ -1,5 +1,5 @@
 # Portfolio
-A portfolio website showcasing my professional expertise, certification and hands-on experience with a login system for a workspace to manage them instead of strenuous fiddling with code and deployment for every update.
+A portfolio website showcasing my professional expertise, certification and hands-on experience with a personal hidden login system for a workspace to manage them instead of strenuous fiddling with code and deployment for every update.
 
 ## Key Features
 - View the public portfolio at the home page
