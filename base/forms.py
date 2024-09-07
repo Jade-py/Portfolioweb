@@ -6,7 +6,7 @@ from .models import Skills, Certification, Projects, Resume
 class SkillsCreateForm(forms.ModelForm):
     class Meta:
         model = Skills
-        fields = '__all__'
+        fields = ('name', 'level', 'icon')
 
 
 class SkillsUpdateForm(forms.ModelForm):
@@ -24,17 +24,16 @@ class CertificationForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Projects
-        fields = '__all__'
+        exclude = ('img_url',)
 
     skill = forms.ModelMultipleChoiceField(
         queryset=Skills.objects.all(),
         widget=CheckboxSelectMultiple,
     )
 
+
 class ResumeForm(forms.ModelForm):
+    file = forms.FileField(label='Upload Resume')
     class Meta:
         model = Resume
-        fields = ['file']
-        widgets = {
-            'file': forms.FileInput(attrs={'class': 'form-control-file'})
-        }
+        fields = '__all__'

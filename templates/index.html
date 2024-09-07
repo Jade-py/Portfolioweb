@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-{% load cloudinary %}
 {% load static %}
 <html lang="en">
 <head>
@@ -209,7 +208,7 @@
                         {% for project in projects %}
                             <div class="row Project-Rows" id="scrollspyHeading{{ forloop.counter }}">
                                 <div class="MyProject">
-                                    {% cloudinary project.img.url %}
+                                    <img src="{{ project.img_url }}">
                                     <div class="Project-Content">
                                         <h3>{{ project.title }}</h3>
                                         <div class="newMatter" >
@@ -222,7 +221,7 @@
                                         <div class="navy">
                                             <div class="navy-icons lo ht">
                                                 {% for skill in project.skill.all %}
-                                                    {% cloudinary skill.icon.url %}
+                                                    <img src="{{ skill.icon_url }}" alt="{{ skill.name }}" title="{{ skill.name }}">
                                                 {% endfor %}
                                             </div>
                                         </div>

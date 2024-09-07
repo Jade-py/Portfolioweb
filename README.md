@@ -14,11 +14,11 @@ A portfolio website showcasing my professional expertise, certification and hand
 - **Deployment Platform:** Vercel, Cloudinary (Storing and serving user uploaded static files)
 
 ## Gallery
-![Workspace](workspace.png)
+![Workspace](media/images/workspace.png)
 - Workspace
 
-![Login](login.png)
+![Login](media/images/login.png)
 - Login
 
-![Home](home.png)
+![Home](media/images/home.png)
 - Portfolio

@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
 from django.views.generic import DeleteView
+from firebase_admin import storage
 from django.urls import reverse_lazy
 from .models import Skills, Certification, Projects, Resume
 from .forms import SkillsCreateForm, SkillsUpdateForm, CertificationForm, ProjectForm, ResumeForm
 from django.conf import settings
 from django.http import HttpResponse
 import os
+import uuid
+from urllib.parse import urlparse
+
+bucket = storage.bucket()  # Initializes firebase storage bucket
 
 
 def login_required(func):
@@ -14,7 +19,19 @@ def login_required(func):
             return func(request, *args, **kwargs)
         else:
             return redirect('login')
+
     return wrapper
+
+
+def upload_to_firebase(file, folder):
+    file_name = f"portfolio/{folder}/{uuid.uuid4()}{os.path.splitext(file.name)[1]}"
+    blob = bucket.blob(file_name)
+    blob.upload_from_string(
+        file.read(),
+        content_type=file.content_type
+    )
+    blob.make_public()
+    return blob.public_url
 
 
 def home(request):
@@ -32,13 +49,8 @@ def home(request):
 
 
 def resume(request):
-    pdf = os.path.join(settings.BASE_DIR, Resume.objects.get(id=1).file.path)
-    filename = pdf.split('/')[-1]
-    with open(pdf, 'rb') as file:
-        response = HttpResponse(file.read(), content_type='application/pdf')
-        response['Content-Disposition'] = f'inline; filename="{filename}"'
-
-    return response
+    response = Resume.objects.get(id=1).file_url
+    return redirect(response)
 
 
 @login_required
@@ -46,6 +58,7 @@ def workspace(request):
     skills = Skills.objects.all()
     certificates = Certification.objects.all()
     projects = Projects.objects.all()
+    resumes = Resume.objects.get(id=1).file_url
     form1 = SkillsCreateForm()
     form2 = SkillsUpdateForm()
     form3 = CertificationForm()
@@ -53,12 +66,13 @@ def workspace(request):
     form5 = ResumeForm()
 
     if request.method == 'POST':
-        print(request.POST)
 
         if 'SkillsCreate' in request.POST:
             form1 = SkillsCreateForm(request.POST, request.FILES)
             if form1.is_valid():
-                form1.save()
+                skills = form1.save(commit=False)  # Icon url is not the part of the form, so we save it via the model instance
+                skills.icon_url = upload_to_firebase(request.FILES['icon'], 'images')
+                skills.save()
                 return redirect('workspace')
             else:
                 print(form1.errors)
@@ -89,28 +103,32 @@ def workspace(request):
                 print(form3.errors)
 
         elif 'Projects' in request.POST:
+            print(request.POST)
             form4 = ProjectForm(request.POST, request.FILES)
             if form4.is_valid():
-                form4.save()
+                project = form4.save(commit=False)
+                project.img_url = upload_to_firebase(request.FILES['img'], 'images')
+                project.save()
+                skills = form4.cleaned_data.get('skill')  # Assuming skill is in the form data
+                if skills:
+                    project.skill.set(skills)  # Add the skills to the project
+                project.save()
                 return redirect('workspace')
             else:
                 print(form4.errors)
 
         elif 'resume' in request.POST:
-            obj = Resume.objects.get(id=1)
-            file_path = obj.file.path
-            print(file_path)
-            if os.path.isfile(file_path):
-                os.remove(file_path)
-            form5 = ResumeForm(request.POST, request.FILES, instance=obj)
-            print('1')
-            if form5.is_valid():
-                print('2')
-                form5.save()
-                print('3')
-                return redirect('workspace')
-            else:
-                print(form5.errors)
+            obj, created = Resume.objects.get_or_create(id=1)
+            if not created:
+                path = urlparse(obj.file_url).path
+                blob_name = path.split('/', 2)[-1]
+                blob = bucket.blob(blob_name)
+                blob.delete()
+            obj.file_url = upload_to_firebase(request.FILES['file'], 'resumes')
+            obj.save()
+            return redirect('workspace')
+        else:
+            print(form5.errors)
     else:
         form1 = SkillsCreateForm()
         form2 = SkillsUpdateForm()
@@ -122,6 +140,7 @@ def workspace(request):
         'skills': skills,
         'certificates': certificates,
         'projects': projects,
+        'resume': resumes,
         'form1': form1,
         'form2': form2,
         'form3': form3,
@@ -138,6 +157,10 @@ class DeleteSkills(DeleteView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.delete()
+        path = urlparse(self.object.icon_url).path  # Gets the path of file form the url
+        blob_name = path.split('/', 2)[-1]  # Remove the bucket name from the path
+        blob = bucket.blob(blob_name)
+        blob.delete()
         return redirect(self.get_success_url())
 
 
@@ -148,6 +171,10 @@ class DeleteProjects(DeleteView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.delete()
+        path = urlparse(self.object.img_url).path
+        blob_name = path.split('/', 2)[-1]
+        blob = bucket.blob(blob_name)
+        blob.delete()
         return redirect(self.get_success_url())
 
 
@@ -166,7 +193,7 @@ def checkup(pk):
         b = Certification.objects.get(pk=pk - 1)
         return b
     except:
-        if pk>0:
+        if pk > 0:
             pk = pk - 1
             b = checkup(pk=pk)
             return b
@@ -190,13 +217,12 @@ def checkdown(pk):
 
 
 def moveup(request, model, pk):
-
     if model == 'Certification':
         a = Certification.objects.get(pk=pk)
         try:
             b = Certification.objects.get(pk=pk - 1)
         except:
-            pk = pk-1
+            pk = pk - 1
             b = checkup(pk=pk)
         print(b)
         if b:
