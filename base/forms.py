@@ -28,7 +28,7 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Projects
-        exclude = ('img_url',)
+        exclude = ('media_url',)
 
     skill = forms.ModelMultipleChoiceField(
         queryset=Skills.objects.all(),

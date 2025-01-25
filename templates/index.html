@@ -208,7 +208,24 @@
                         {% for project in projects %}
                             <div class="row Project-Rows" id="scrollspyHeading{{ forloop.counter }}">
                                 <div class="MyProject">
-                                    <img src="{{ project.img_url }}">
+                                    {% with file_ext=project.media_url|lower|slice:"-3:" %}
+                                        {% if file_ext in "jpg,png,gif,bmp" or project.media_url|lower|slice:"-4:" in "jpeg,webp" %}
+                                            <img src="{{ project.media_url }}"
+                                                 alt="{{ project.title }}"
+                                                 style="width: 100%; max-width: 1000px; height: auto;">
+                                        {% elif file_ext in "mp4,mov,avi,webm" %}
+                                            <video
+                                                src="{{ project.media_url }}"
+                                                style="width: 100%; max-width: 1000px; height: auto;"
+                                                loop
+                                                muted
+                                                autoplay
+                                                playsinline
+                                            >
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        {% endif %}
+                                    {% endwith %}
                                     <div class="Project-Content">
                                         <h3>{{ project.title }}</h3>
                                         <div class="newMatter" >

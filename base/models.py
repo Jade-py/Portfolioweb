@@ -27,7 +27,7 @@ class Projects(models.Model):
     website_link = models.CharField(max_length=100)
     github_link = models.CharField(max_length=100)
     skill = models.ManyToManyField(Skills)
-    img_url = models.URLField(max_length=500, blank=True, null=True)
+    media_url = models.URLField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.title

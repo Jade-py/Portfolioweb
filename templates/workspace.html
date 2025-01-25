@@ -112,18 +112,27 @@
                 <a href="{{ project.website_link }}" class="card-link">Website</a>
                 <a href="{{ project.github_link }}" class="card-link">GitHub</a>
                 <p>Skills: {% for skill in project.skill.all %}{{ skill.name }} {% endfor %}</p>
-                {% if project.img_url %}
-                    <img src="{{ project.img_url }}"
-                         srcset="{{ project.img_url_small }} 300w,
-                                 {{ project.img_url_medium }} 600w,
-                                 {{ project.img_url }} 1200w"
-                         sizes="(max-width: 300px) 280px,
-                                (max-width: 600px) 580px,
-                                1000px"
-                         alt="{{ project.name }}"
-                         style="width: 100%; max-width: 1000px; height: auto;">
+                {% if project.media_url %}
+                    {% with file_ext=project.media_url|lower|slice:"-3:" %}
+                        {% if file_ext in "jpg,png,gif,bmp" or project.media_url|lower|slice:"-4:" in "jpeg,webp" %}
+                            <img src="{{ project.media_url }}"
+                                 alt="{{ project.title }}"
+                                 style="width: 100%; max-width: 1000px; height: auto;">
+                        {% elif file_ext in "mp4,mov,avi,webm" %}
+                            <video
+                                src="{{ project.media_url }}"
+                                style="width: 100%; max-width: 1000px; height: auto;"
+                                loop
+                                muted
+                                autoplay
+                                playsinline
+                            >
+                                Your browser does not support the video tag.
+                            </video>
+                        {% endif %}
+                    {% endwith %}
                 {% else %}
-                    <p>No image available</p>
+                    <p>No media available</p>
                 {% endif %}
                 <div class="mt-2">
                     <a href="{% url 'up' 'Projects' project.pk %}" class="btn btn-sm btn-primary">Move Up</a>

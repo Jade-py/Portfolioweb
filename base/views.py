@@ -10,7 +10,7 @@ import os
 import uuid
 from urllib.parse import urlparse
 
-bucket = storage.bucket()  # Initializes firebase storage bucket
+bucket = storage.bucket()
 
 
 def login_required(func):
@@ -107,7 +107,10 @@ def workspace(request):
             form4 = ProjectForm(request.POST, request.FILES)
             if form4.is_valid():
                 project = form4.save(commit=False)
-                project.img_url = upload_to_firebase(request.FILES['img'], 'images')
+                if 'img' in request.FILES:
+                    project.media_url = upload_to_firebase(request.FILES['img'], 'images')
+                elif 'video' in request.FILES:
+                    project.media_url = upload_to_firebase(request.FILES['video'], 'images')
                 project.save()
                 skills = form4.cleaned_data.get('skill')  # Assuming skill is in the form data
                 if skills:
@@ -171,7 +174,7 @@ class DeleteProjects(DeleteView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.delete()
-        path = urlparse(self.object.img_url).path
+        path = urlparse(self.object.media_url).path
         blob_name = path.split('/', 2)[-1]
         blob = bucket.blob(blob_name)
         blob.delete()
